@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Shopping Basket</h1>
+    {% if basket %}
+        <ul>
+            {% for item in basket %}
+                <li>{{ item.name }} - Quantity: {{ item.quantity }} - Price: £{{ '%.2f' % item.price }} <a href="/remove_from_basket/{{ item.book_id }}">Remove</a></li>
+            {% endfor %}
+        </ul>
+        <p>Total Price: £{{ '%.2f' % total_price }}</p>
+        <a href="/checkout">Proceed to Checkout</a>
+    {% else %}
+        <p>Your basket is currently empty.</p>
+        <a href="/" class="btn">Continue Shopping</a>
+    {% endif %}
+</body>
+</html>

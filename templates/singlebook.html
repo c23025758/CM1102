@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ book.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/basket">Basket</a></li>
+        </ul>
+    </nav>
+    <div class="book-details">
+        <h2>{{ book.name }}</h2>
+        <img src="{{ url_for('static', filename=book.name.lower().replace(' ', '') + '.jpg') }}" alt="{{ book.name }}">
+        <p>Price: £{{ '%.2f' % book.price }}</p>
+        <p>{{ book.description }}</p>
+        <form method="POST" action="{{ url_for('singleBookPage', bookId=book.id) }}">
+            {{ form.csrf_token }}
+            {{ form.quantity.label }} {{ form.quantity(size=2) }}
+            {{ form.submit }}
+        </form>
+        <a href="/">Back to Gallery</a>
+        <a href="/checkout">Checkout</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Store</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/basket">Basket</a></li>
+        </ul>
+    </nav>
+    <h1>Welcome to the Book Store</h1>
+    <div class="sort-bar">
+        <form action="/" method="GET">
+            <label for="sort_by">Sort by:</label>
+            <select name="sort_by" id="sort_by">
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+                <option value="environmental_impact">Environmental Impact</option>
+            </select>
+            <input type="submit" value="Sort">
+        </form>
+    </div>
+    <div class="book-container">
+        {% for book in books %}
+        <div class="book-item">
+            <a href="{{ url_for('singleBookPage', bookId=book.id) }}">
+                <img src="{{ url_for('static', filename=book.name.lower().replace(' ', '') + '.jpg') }}" alt="{{ book.name }}">
+                <h2>{{ book.name }}</h2>
+                <p>Price: £{{ '%.2f' % book.price }}</p>
+                <p>{{ book.environmental_impact }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="/basket">View Basket</a>
+</body>
+</html>
